@@ -11,6 +11,11 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('admin/error403', function () {
         return view('errors.admin403');
     });
+    Route::get('error403', function () {
+        return view('errors.user403');
+    });
+    Route::get('/login',array('uses' => 'AuthController@loginPage','as' => 'login'));
+    Route::post('/login',array('uses' => 'AuthController@postLogin'));
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -31,7 +36,11 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['middleware' => 'roles:2'], function () {
-
+        Route::get('/', array('uses' => 'HomeController@searchBus'));
+        Route::get('/searchbus', array('uses' => 'HomeController@searchBus'));
+        Route::post('/searchbus', array('uses' => 'HomeController@searchBus'));
+        Route::get('/autocomplete',array('uses' => 'HomeController@autocompleteLocation'));
+        Route::get('/logout',array('uses' => 'HomeController@getLogout'));
     });
 
 });

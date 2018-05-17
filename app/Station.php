@@ -10,6 +10,7 @@ class Station extends Model
     {
         return $this->belongsToMany(Bus::class)
             ->withPivot(['station_order', 'arrival_time'])
+            ->orderBy('station_order')
             ->withTimestamps();
     }
 }

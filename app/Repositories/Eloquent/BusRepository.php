@@ -92,4 +92,24 @@ class BusRepository implements BusRepositoryInterface
         $bus = Bus::where('name',$busName)->get();
         return $bus;
     }
+
+    /*
+     * @param int $stations
+     * */
+    public function getBusIdByStationId($stationId) {
+        return $this->bus->whereHas('stations', function($query) use($stationId) {
+            $query->where('stations.id', $stationId);
+        })->pluck('buses.id');
+    }
+
+    /*
+     * @param array $busIds
+     * @param int $stations
+     * */
+    public function checkBusesContainStationId($busIds, $stationId) {
+        return $this->bus->whereHas('stations', function($query) use($busIds, $stationId) {
+            $query->whereIn('buses.id',$busIds)
+                  ->where('stations.id', $stationId);
+        })->get();
+    }
 }

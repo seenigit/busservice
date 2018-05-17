@@ -21,4 +21,12 @@ class StationRepository implements StationRepositoryInterface
     {
         return Station::get();
     }
+
+    public function getStationIdsByNames(array $stationNames) {
+        return $this->station->whereIn('name', $stationNames)->pluck('id');
+    }
+
+    public function searchStationByName($name) {
+        return $this->station->where('name','LIKE',"%{$name}%")->get();
+    }
 }

@@ -26,7 +26,7 @@ class RedirectOnRole
             if($role_id == 1)
                 return redirect('/admin/error403');
             else
-                return view('errors.user403');
+                return redirect('/error403');
         }
         return $next($request);
     }
