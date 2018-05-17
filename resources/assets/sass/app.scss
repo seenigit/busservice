@@ -1,0 +1,50 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.nav-menu {
+  margin-left: 68px;
+}
+.nav-menu li{
+  float: left;
+  padding-right: 20px;
+}
+
+#stationsinfo{
+  margin-left: 15px;
+}
+
+#stationsinfo .row {
+  padding-bottom: 12px;
+}
+
+#stationsinfo .station-order {
+  width: 35px;
+}
+
+#stationsinfo .arrival-time {
+  width: 100px;
+}
+
+#stationsinfo .row div {
+  border-right: 1px solid #ccc;
+}
+
+#stationsinfo .row div:last-child {
+  border-right: none;
+}
+
+.multiselect-container.dropdown-menu{
+  width: 290px;
+}
