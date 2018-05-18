@@ -87,10 +87,11 @@
 @endsection
 
 @section('scripts')
-    <!-- Initialize the plugin: -->
+
     <script type="text/javascript">
         $(document).ready(function() {
             var order = 0;
+            <!-- Initialize the plugin: -->
             $('#stations').multiselect({
                 onChange: function(option, checked, select) {
                     order++;

@@ -25,4 +25,13 @@ class AuthController extends Controller
             ->withInput()
             ->withErrors('That email/password does not exist.');
     }
+
+    public function getLogout()
+    {
+        $roleId = \Auth::user()->role_id;
+        \Auth::logout();
+        if($roleId == config('constants.roles.ADMIN'))
+            return \Redirect::to('/admin/login');
+        return \Redirect::to('/login');
+    }
 }

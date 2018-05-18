@@ -43,12 +43,6 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function getLogout()
-    {
-        \Auth::logout();
-        return \Redirect::intended('/');
-    }
-
     public function searchBus(Request $request){
         if ($request->isMethod('post'))
         {

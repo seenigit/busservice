@@ -8,6 +8,8 @@ use App\Repositories\Contracts\BusRepositoryInterface;
 use App\Repositories\Contracts\StationRepositoryInterface;
 use App\Repositories\Contracts\BusTypeRepositoryInterface;
 use Session;
+use Redirect;
+use Validator;
 
 class AdminController extends Controller
 {
@@ -52,16 +54,16 @@ class AdminController extends Controller
 
         if (\Auth::attempt(['email' => $email, 'password' => $password]))
         {
-            return \Redirect::intended('/admin/dashboard');
+            return Redirect::to('/admin/dashboard');
         }
 
-        return \Redirect::back()
+        return Redirect::back()
             ->withInput()
             ->withErrors('That email/password does not exist.');
     }
 
     public function getDashboard() {
-        $users = $this->userRepository->getUsers(2);
+        $users = $this->userRepository->getUsers(config('constants.roles.PASSENGER'));
         return view('admin.dashboard', array('users' => $users));
     }
 
@@ -111,7 +113,7 @@ class AdminController extends Controller
     {
         $userId = $request->input ('id');
         $this->userRepository->deleteUser($userId);
-        return \Redirect::intended('/admin/dashboard');
+        return Redirect::to('/admin/dashboard');
     }
 
     public function busList() {
@@ -127,7 +129,7 @@ class AdminController extends Controller
                 'stationOrder.*' => 'required|numeric',
                 'arrivalTime.*' => ['required',
                     'regex:/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/']];
-            $validate = \Validator::make(request()->all(), $validationRules);
+            $validate = Validator::make(request()->all(), $validationRules);
             if($validate->fails())
             {
                 return redirect(url('/admin/addbus'))->withErrors($validate)->withInput();
@@ -154,6 +156,6 @@ class AdminController extends Controller
         $busId = $request->input ('id');
         $response = $this->busRepository->deleteBus($busId);
         Session::flash('message', $response['message']);
-        return \Redirect::to('admin/buslist');
+        return Redirect::to('admin/buslist');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-Auth::routes();
+//Auth::routes();
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('admin', function () {
@@ -19,6 +19,9 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
+
+    Route::post('/logout',array('uses' => 'AuthController@getLogout'));
+
     Route::group(['middleware' => 'roles:1'], function () {
         Route::get('admin/dashboard', array('uses' => 'AdminController@getDashboard'));
         Route::get('admin/adduser', array('uses' => 'AdminController@addUser'));
@@ -40,7 +43,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/searchbus', array('uses' => 'HomeController@searchBus'));
         Route::post('/searchbus', array('uses' => 'HomeController@searchBus'));
         Route::get('/autocomplete',array('uses' => 'HomeController@autocompleteLocation'));
-        Route::get('/logout',array('uses' => 'HomeController@getLogout'));
     });
 
 });

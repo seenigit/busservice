@@ -25,7 +25,11 @@
 				<ul>
 					@if (!Auth::guest())
 						<li><a href="#">Welcome {{ Auth::user()->name }}</a></li> |
-						<li><a href="{{ url('/logout') }}">Logout</a></li>
+						<li><a href="{{ url('/logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Logout</a></li>
+						<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+							@csrf
+						</form>
 					@else
 						<li><a href="/login">Log In</a></li>
 					@endif
@@ -48,14 +52,6 @@
 			</ul>
 			</div>
 		</div>
-	   <div class="header-bottom-right">
-	  <div class="tag-list" style="float:right">
-            <ul class="icon1 sub-icon1 profile_img __web-inspector-hide-shortcut__">
-			<li><a class="active-icon c2" href="{{ url("/viewcart") }}"> </a>
-				
-			</li>
-		</ul>
-	  </div>
     </div>
      <div class="clear"></div>
      </div>

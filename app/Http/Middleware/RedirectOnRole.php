@@ -18,11 +18,10 @@ class RedirectOnRole
     public function handle($request, Closure $next, $role)
     {
         $user_id = Auth::user()->id;
-        $role_id = $role;
-        $query   = User::where('id', $user_id)->where('role_id', $role_id)->first();
+        $query   = User::where('id', $user_id)->where('role_id', $role)->first();
         if (!$query) {
             Auth::logout();
-            if($role_id == 1)
+            if($role == config('constants.roles.ADMIN'))
                 return redirect('/admin/error403');
             else
                 return redirect('/error403');
