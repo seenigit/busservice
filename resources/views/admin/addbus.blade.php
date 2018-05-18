@@ -46,12 +46,6 @@
                 </div>
           </div>
           <div class="form-group">
-                <label class="col-lg-3 control-label">Each Station Wait Time:</label>
-                <div class="col-lg-8">
-                    <input class="form-control" value="{{ old('stationWaitTimeMins') }}" type="text" name="stationWaitTimeMins" id="stationWaitTimeMins" maxlength="2" required>
-                </div>
-          </div>
-          <div class="form-group">
             <label class="col-lg-3 control-label">Stations:</label>
             <div class="col-lg-8">
                 <select id="stations" name="stations[]" multiple="multiple" required>
@@ -72,7 +66,7 @@
                             <div class="row" id="station{{$stations[$stOldVal-1]->id}}">
                                 <div class="col-sm-4">Station - <b>{{$stations[$stOldVal-1]->name}}</b></div>
                                 <div class="col-sm-3">Station Order - <input class="station-order" name="stationOrder[]" value="{{ old('stationOrder')[$key] }}" id="stationOrder[]" type="number" min="0" required></div>
-                                <div class="col-sm-5">Arrival Time - <input placeholder="HH:MM:SS" name="arrivalTime[]" value="{{ old('arrivalTime')[$key] }}" id="arrivalTime[]" class="arrival-time" type="text" maxlength="5" required></div>
+                                <div class="col-sm-5">Arrival Time - <input placeholder="HH:MM" name="arrivalTime[]" value="{{ old('arrivalTime')[$key] }}" id="arrivalTime[]" class="arrival-time" type="text" maxlength="5" required></div>
                             </div>
                         @endforeach
                     @endif
@@ -104,7 +98,7 @@
                         $('#stationsinfo').append('<div class="row" id="station'+$(option).val()+'">' +
                             '                      <div class="col-sm-4">Station - <b>'+$(option).text()+'</b></div>\n' +
                             '                      <div class="col-sm-3">Station Order - <input value="'+order+'" class="station-order" name="stationOrder[]" id="stationOrder[]" type="number" min="0" required></div>\n' +
-                            '                      <div class="col-sm-5">Arrival Time - <input placeholder="HH:MM:SS" name="arrivalTime[]" class="arrival-time" id="arrivalTime[]" type="text" maxlength="5" required></div>' +
+                            '                      <div class="col-sm-5">Arrival Time - <input placeholder="HH:MM" name="arrivalTime[]" class="arrival-time" id="arrivalTime[]" type="text" maxlength="5" required></div>' +
                             '                      </div>')
                     }
                     else if (checked === false) {
@@ -119,13 +113,6 @@
                 if($('#name').val() == '') {
                     success = false;
                     message += 'The name field is required\n';
-                }
-                if($('#stationWaitTimeMins').val() == '') {
-                    success = false;
-                    message += 'The station wait time field is required\n';
-                } else if(isNaN($('#stationWaitTimeMins').val())) {
-                    success = false;
-                    message += 'The station wait time mins must be a number.\n';
                 }
                 if($('#stations :selected').text() == ''){
                     success = false;

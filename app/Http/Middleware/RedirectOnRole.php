@@ -20,7 +20,6 @@ class RedirectOnRole
         $user_id = Auth::user()->id;
         $role_id = $role;
         $query   = User::where('id', $user_id)->where('role_id', $role_id)->first();
-
         if (!$query) {
             Auth::logout();
             if($role_id == 1)

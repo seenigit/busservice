@@ -12,9 +12,9 @@ class BusTypesTableSeeder extends Seeder
     public function run()
     {
         DB::table('bus_types')->truncate();
-        $rolesData = ["Non A/C Semi Sleeper", "Non A/C Sleeper", "A/C Semi Sleeper",
+        $busTypeData = ["Non A/C Semi Sleeper", "Non A/C Sleeper", "A/C Semi Sleeper",
                       "A/C Sleeper", "Volvo", "Volvo AC"];
-        foreach ($rolesData as $name) {
+        foreach ($busTypeData as $name) {
             DB::table('bus_types')->insert([
                 'name'       => $name,
                 'created_at' => date("Y-m-d h:i:s"),

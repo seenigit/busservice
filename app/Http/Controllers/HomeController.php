@@ -13,12 +13,12 @@ class HomeController extends Controller
 {
 
     /**
-     * @var BusRepositoryInterface
+     * @var $busRepository
      */
     protected $busRepository;
 
     /**
-     * @var BusRepositoryInterface
+     * @var $stationRepository
      */
     protected $stationRepository;
 

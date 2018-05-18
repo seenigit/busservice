@@ -11,8 +11,8 @@ class BusStationTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('buses_stations')->truncate();
-        $usertData = [["bus_id" => 1, "station_id" => 1,
+        DB::table('bus_station')->truncate();
+        $busStationData = [["bus_id" => 1, "station_id" => 1,
                        "station_order" => 1, 'arrival_time' => '09:00:00'],
                       ["bus_id" => 1, "station_id" => 3,
                        "station_order" => 2, 'arrival_time' => '09:30:00'],
@@ -51,8 +51,8 @@ class BusStationTableSeeder extends Seeder
                       ["bus_id" => 4, "station_id" => 8,
                        "station_order" => 4, 'arrival_time' => '21:00:00'],
             ];
-        foreach ($usertData as $data) {
-            DB::table('buses_stations')->insert([
+        foreach ($busStationData as $data) {
+            DB::table('bus_station')->insert([
                 'bus_id'    => $data['bus_id'],
                 'station_id'       => $data['station_id'],
                 'station_order'   => $data['station_order'],

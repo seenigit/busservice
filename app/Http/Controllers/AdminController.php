@@ -123,7 +123,6 @@ class AdminController extends Controller
         if ($request->isMethod('post'))
         {
             $validationRules = ['name' => 'required|unique:buses',
-                'stationWaitTimeMins' => 'required|numeric',
                 'stations' => 'required',
                 'stationOrder.*' => 'required|numeric',
                 'arrivalTime.*' => ['required',
@@ -136,7 +135,6 @@ class AdminController extends Controller
             $data['name'] = $request->input ('name');
             $data['stations'] = $request->input ('stations');
             $data['busType'] = $request->input ('busType');
-            $data['stationWaitTimeMins'] = $request->input ('stationWaitTimeMins');
             $data['stationOrder'] = $request->input ('stationOrder');
             $data['arrivalTime'] = $request->input ('arrivalTime');
             $response = $this->busRepository->addBus($data);

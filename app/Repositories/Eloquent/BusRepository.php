@@ -25,7 +25,6 @@ class BusRepository implements BusRepositoryInterface
             $bus = $this->bus->newInstance();
             $bus->name = $data['name'];
             $bus->bus_type_id = $data['busType'];
-            $bus->station_wait_time_mins = $data['stationWaitTimeMins'];
             try{
                 $bus->save();
                 $this->addStations($bus, $data);
@@ -52,7 +51,6 @@ class BusRepository implements BusRepositoryInterface
         if($bus) {
             $bus->name = $data['name'];
             $bus->bus_type = $data['busType'];
-            $bus->station_wait_time_mins = $data['stationWaitTimeMins'];
             $this->addStations($bus, $data);
             try{
                 $bus->save();

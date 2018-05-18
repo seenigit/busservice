@@ -20,7 +20,6 @@ class CreateBusesTable extends Migration
             $table->foreign('bus_type_id')
                 ->references('id')
                 ->on('bus_types');
-            $table->string('station_wait_time_mins');
             $table->timestamps();
             $table->softDeletes();
         });
