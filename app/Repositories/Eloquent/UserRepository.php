@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\User;
+
 use App\Repositories\Contracts\UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface
@@ -20,8 +21,7 @@ class UserRepository implements UserRepositoryInterface
     public function addUser($data)
     {
         $user = $this->checkUserExistsByEmail($data['email']);
-        if($user->isEmpty()) 
-        {
+        if ($user->isEmpty()) {
             $user = $this->user->newInstance();
             $user->name = $data['name'];
             $user->email = $data['email'];
@@ -29,7 +29,7 @@ class UserRepository implements UserRepositoryInterface
             $user->city = $data['city'];
             $user->role_id = 2;
             $user->password = app('hash')->make($data['password']);
-            try{
+            try {
                 $user->save();
             } catch (Exception $ex) {
                 return ['status' => false, 'message' => 'Something went wrong, please try again later.'];
@@ -42,13 +42,12 @@ class UserRepository implements UserRepositoryInterface
     public function updateUser($data)
     {
         $user = User::find($data['userId']);
-        if($user) 
-        {
+        if ($user) {
             $user->name = $data['name'];
             $user->email = $data['email'];
             $user->address = $data['address'];
             $user->city = $data['city'];
-            try{
+            try {
                 $user->save();
             } catch (Exception $ex) {
                 return ['message' => 'Something went wrong, please try again later.'];

@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Bus;
+
 use App\Repositories\Contracts\BusRepositoryInterface;
 
 class BusRepository implements BusRepositoryInterface
@@ -20,12 +21,11 @@ class BusRepository implements BusRepositoryInterface
     public function addBus($data)
     {
         $bus = $this->checkBusExists($data['name']);
-        if($bus->isEmpty())
-        {
+        if ($bus->isEmpty()) {
             $bus = $this->bus->newInstance();
             $bus->name = $data['name'];
             $bus->bus_type_id = $data['busType'];
-            try{
+            try {
                 $bus->save();
                 $this->addStations($bus, $data);
             } catch (Exception $ex) {
@@ -36,11 +36,14 @@ class BusRepository implements BusRepositoryInterface
         return ['status' => false, 'message' => 'This bus already exists'];
     }
 
-    public function addStations(Bus $bus, $data) {
+    public function addStations(Bus $bus, $data)
+    {
         $busStations = array();
-        foreach($data['stations'] as $key => $station) {
-            $busStations[$station] = ['station_order' => $data['stationOrder'][$key],
-                                           'arrival_time' => $data['arrivalTime'][$key]];
+        foreach ($data['stations'] as $key => $station) {
+            $busStations[$station] = [
+                'station_order' => $data['stationOrder'][$key],
+                'arrival_time' => $data['arrivalTime'][$key]
+            ];
         }
         $bus->stations()->sync($busStations);
     }
@@ -48,11 +51,11 @@ class BusRepository implements BusRepositoryInterface
     public function updateBus($data)
     {
         $bus = $this->getBus($data['busId']);
-        if($bus) {
+        if ($bus) {
             $bus->name = $data['name'];
             $bus->bus_type = $data['busType'];
             $this->addStations($bus, $data);
-            try{
+            try {
                 $bus->save();
             } catch (Exception $ex) {
                 return ['status' => false, 'message' => 'Something went wrong, please try again later.'];
@@ -70,7 +73,7 @@ class BusRepository implements BusRepositoryInterface
     public function deleteBus($busId)
     {
         $bus = $this->getBus($busId);
-        if($bus) {
+        if ($bus) {
             $bus->stations()->detach();
             $bus->delete();
             return ['success' => true, 'message' => 'Bus deleted successfully'];

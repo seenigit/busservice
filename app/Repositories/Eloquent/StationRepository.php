@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Station;
+
 use App\Repositories\Contracts\StationRepositoryInterface;
 
 class StationRepository implements StationRepositoryInterface

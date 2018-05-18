@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\BusType;
+
 use App\Repositories\Contracts\BusTypeRepositoryInterface;
 
 class BusTypeRepository implements BusTypeRepositoryInterface

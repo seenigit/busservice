@@ -12,8 +12,10 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         DB::table('roles')->truncate();
-        $rolesData = ["Admin",
-            "Passenger"];
+        $rolesData = [
+            "Admin",
+            "Passenger"
+        ];
         foreach ($rolesData as $name) {
             DB::table('roles')->insert([
                 'name'       => $name,

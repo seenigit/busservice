@@ -3,13 +3,21 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+
 use App\Repositories\Contracts\UserRepositoryInterface;
+
 use App\Repositories\Eloquent\UserRepository;
+
 use App\Repositories\Contracts\BusRepositoryInterface;
+
 use App\Repositories\Eloquent\BusRepository;
+
 use App\Repositories\Contracts\StationRepositoryInterface;
+
 use App\Repositories\Eloquent\StationRepository;
+
 use App\Repositories\Contracts\BusTypeRepositoryInterface;
+
 use App\Repositories\Eloquent\BusTypeRepository;
 
 class AppServiceProvider extends ServiceProvider

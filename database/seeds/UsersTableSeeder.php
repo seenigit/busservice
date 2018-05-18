@@ -12,12 +12,20 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->truncate();
-        $usertData = [["name" => "Admin", "email" => "admin@busservice.com", "role_id" => 1,
-                       "address" => "pc road west, millerpuram", "city" => "Tuticorin"],
-                      ["name" => "Passenger One", "email" => "user1@busservice.com", "role_id" => 2,
-                       "address" => "pc road west, millerpuram", "city" => "Tuticorin"],
-                      ["name" => "Passenger Two", "email" => "user2@busservice.com", "role_id" => 2,
-                       "address" => "Melakkal Main Road, Kochadai", "city" => "Madurai"]];
+        $usertData = [
+            [
+                "name" => "Admin", "email" => "admin@busservice.com", "role_id" => 1,
+                "address" => "pc road west, millerpuram", "city" => "Tuticorin"
+            ],
+            [
+                "name" => "Passenger One", "email" => "user1@busservice.com", "role_id" => 2,
+                "address" => "pc road west, millerpuram", "city" => "Tuticorin"
+            ],
+            [
+                "name" => "Passenger Two", "email" => "user2@busservice.com", "role_id" => 2,
+                "address" => "Melakkal Main Road, Kochadai", "city" => "Madurai"
+            ]
+        ];
         foreach ($usertData as $data) {
             DB::table('users')->insert([
                 'role_id'    => $data['role_id'],

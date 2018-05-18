@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Bus;
+
 use App\Station;
+
 use Illuminate\Http\Request;
+
 use App\Repositories\Contracts\BusRepositoryInterface;
+
 use App\Repositories\Contracts\StationRepositoryInterface;
+
 use Session;
 
 class HomeController extends Controller
@@ -43,13 +48,13 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function searchBus(Request $request){
-        if ($request->isMethod('post'))
-        {
+    public function searchBus(Request $request)
+    {
+        if ($request->isMethod('post')) {
             $from = $request->input('from');
             $to = $request->input('to');
             $stations = $this->stationRepository->getStationIdsByNames([$from, $to]);
-            if(!$stations->isEmpty() && count($stations) == 2) {
+            if (!$stations->isEmpty() && count($stations) == 2) {
                 //Get origin location buses
                 $buses = $this->busRepository->getBusIdByStationId($stations[0]);
 
@@ -64,11 +69,12 @@ class HomeController extends Controller
         return view('user.home',['buses' => $buses]);
     }
 
-    public function autocompleteLocation() {
+    public function autocompleteLocation()
+    {
         $query = request()->get('query','');
         $locations = $this->stationRepository->searchStationByName($query);
         $locArray = array();
-        foreach($locations as $key => $location) {
+        foreach ($locations as $key => $location) {
             $locArray[$key]['input_text'] = $location->name;
             $locArray[$key]['input_value'] = $location->name;
         }

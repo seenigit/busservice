@@ -12,16 +12,19 @@ class StationsTableSeeder extends Seeder
     public function run()
     {
         DB::table('stations')->truncate();
-        $stationsData = [["name" => "Thoothukudi", "address" => "Melur Nagar, Shanmugapuram"],
-                      ["name" => "Spic", "address" => "Melur Nagar, Shanmugapuram"],
-                      ["name" => "Pudhukotai", "address" => "Melur Nagar, Shanmugapuram"],
-                      ["name" => "eral", "address" => "Melur Nagar, Shanmugapuram"],
-                      ["name" => "Virudhunagar", "address" => "Melur Nagar, Shanmugapuram"],
-                      ["name" => "Madurai periyar bus stand", "address" => "Melur Nagar, Shanmugapuram"],
-                      ["name" => "Madurai matuthaveni bus stand", "address" => "Melur Nagar, Shanmugapuram"],
-                      ["name" => "Manamadurai", "address" => "Melur Nagar, Shanmugapuram"],
-                      ["name" => "Vallanadu", "address" => "Melur Nagar, Shanmugapuram"],
-                      ["name" => "Thirunelveli", "address" => "Melur Nagar, Shanmugapuram"]];
+        $stationsData = [
+            ["name" => "Thoothukudi", "address" => "Melur Nagar, Shanmugapuram"],
+            ["name" => "Spic", "address" => "Melur Nagar, Shanmugapuram"],
+            ["name" => "Pudhukotai", "address" => "Melur Nagar, Shanmugapuram"],
+            ["name" => "eral", "address" => "Melur Nagar, Shanmugapuram"],
+            ["name" => "Virudhunagar", "address" => "Melur Nagar, Shanmugapuram"],
+            ["name" => "Madurai periyar bus stand", "address" => "Melur Nagar, Shanmugapuram"],
+            ["name" => "Madurai matuthaveni bus stand", "address" => "Melur Nagar, Shanmugapuram"],
+            ["name" => "Manamadurai", "address" => "Melur Nagar, Shanmugapuram"],
+            ["name" => "Vallanadu", "address" => "Melur Nagar, Shanmugapuram"],
+            ["name" => "Thirunelveli", "address" => "Melur Nagar, Shanmugapuram"]
+        ];
+
         foreach ($stationsData as $data) {
             DB::table('stations')->insert([
                 'name'    => $data['name'],

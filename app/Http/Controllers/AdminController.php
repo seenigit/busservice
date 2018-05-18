@@ -3,39 +3,49 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Repositories\Contracts\UserRepositoryInterface;
+
 use App\Repositories\Contracts\BusRepositoryInterface;
+
 use App\Repositories\Contracts\StationRepositoryInterface;
+
 use App\Repositories\Contracts\BusTypeRepositoryInterface;
+
 use Session;
+
 use Redirect;
+
 use Validator;
 
 class AdminController extends Controller
 {
     /**
-     * @var UserRepositoryInterface
+     * @var $userRepository
      */
     protected $userRepository;
 
     /**
-     * @var BusRepositoryInterface
+     * @var $busRepository
      */
     protected $busRepository;
 
     /**
-     * @var BusRepositoryInterface
+     * @var $stationRepository
      */
     protected $stationRepository;
 
     /**
-     * @var BusRepositoryInterface
+     * @var $busTypeRepository
      */
     protected $busTypeRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository, BusRepositoryInterface $busRepository,
-                                StationRepositoryInterface $stationRepository, BusTypeRepositoryInterface $busTypeRepository)
-    {
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        BusRepositoryInterface $busRepository,
+        StationRepositoryInterface $stationRepository,
+        BusTypeRepositoryInterface $busTypeRepository
+    ) {
         $this->userRepository = $userRepository;
         $this->busRepository = $busRepository;
         $this->stationRepository = $stationRepository;
@@ -52,8 +62,7 @@ class AdminController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
 
-        if (\Auth::attempt(['email' => $email, 'password' => $password]))
-        {
+        if (\Auth::attempt(['email' => $email, 'password' => $password])) {
             return Redirect::to('/admin/dashboard');
         }
 
@@ -62,14 +71,15 @@ class AdminController extends Controller
             ->withErrors('That email/password does not exist.');
     }
 
-    public function getDashboard() {
+    public function getDashboard()
+    {
         $users = $this->userRepository->getUsers(config('constants.roles.PASSENGER'));
         return view('admin.dashboard', array('users' => $users));
     }
 
-    public function addUser(Request $request) {
-        if ($request->isMethod('post'))
-        {
+    public function addUser(Request $request)
+    {
+        if ($request->isMethod('post')) {
             $data['name'] = $request->input ('name');
             $data['email'] = $request->input ('email');
             $data['address'] = $request->input ('address');
@@ -85,13 +95,13 @@ class AdminController extends Controller
         return view('admin.useradd');
     }
 
-    public function editUser($userId, Request $request) {
-        if($request->input ('id'))
+    public function editUser($userId, Request $request)
+    {
+        if ($request->input('id'))
             $userId = $request->input ('id');
         $user = $this->userRepository->getUser($userId);
-        if($user) {
-            if ($request->isMethod('post'))
-            {
+        if ($user) {
+            if ($request->isMethod('post')) {
                 $data['userId'] = $userId;
                 $data['name'] = $request->input ('name');
                 $data['email'] = $request->input ('email');
@@ -116,22 +126,22 @@ class AdminController extends Controller
         return Redirect::to('/admin/dashboard');
     }
 
-    public function busList() {
+    public function busList()
+    {
         $buses = $this->busRepository->getBuses();
         return view('admin.buslist', array('buses' => $buses));
     }
 
-    public function addBus(Request $request) {
-        if ($request->isMethod('post'))
-        {
+    public function addBus(Request $request)
+    {
+        if ($request->isMethod('post')) {
             $validationRules = ['name' => 'required|unique:buses',
                 'stations' => 'required',
                 'stationOrder.*' => 'required|numeric',
                 'arrivalTime.*' => ['required',
                     'regex:/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/']];
             $validate = Validator::make(request()->all(), $validationRules);
-            if($validate->fails())
-            {
+            if ($validate->fails()) {
                 return redirect(url('/admin/addbus'))->withErrors($validate)->withInput();
             }
             $data['name'] = $request->input ('name');
