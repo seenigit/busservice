@@ -1,3 +1,4 @@
+<pre>
 **#Framework:**
 * Laravel 5.6
 Ref: https://laravel.com/docs/5.6/installation
@@ -15,10 +16,11 @@ Ref: https://laravel.com/docs/5.6/installation
 
 * Clone or download this repo
 
-skip this step if you don't want to change existing built files
+skip these 3 steps if you don't want to change existing built files
 * run - composer update
 * run - npm update
 * run - npm run dev
+
 
 * give 755 permission to storage folder
 * create database and configure it in .env file
@@ -35,3 +37,4 @@ password - password
 http://127.0.0.1:8000/
 username - user1@busservice.com
 password - password
+</pre>
