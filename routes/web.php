@@ -6,8 +6,8 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('admin', function () {
         return Redirect::to('/admin/login');
     });
-    Route::get('admin/login', array('uses' => 'AdminController@getLogin'));
-    Route::post('admin/login', array('uses' => 'AdminController@postLogin'));
+    Route::get('admin/login', array('uses' => 'AdminController@showLogin'));
+    Route::post('admin/login', array('uses' => 'AuthController@postLogin'));
     Route::get('admin/error403', function () {
         return view('errors.admin403');
     });

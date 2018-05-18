@@ -39,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        //Lets bind all our interfaces and repositories here
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(BusRepositoryInterface::class, BusRepository::class);
         $this->app->bind(StationRepositoryInterface::class, StationRepository::class);

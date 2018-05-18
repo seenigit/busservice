@@ -18,10 +18,20 @@ class UserRepository implements UserRepositoryInterface
         $this->user = $user;
     }
 
+    /**
+     * Add user
+     *
+     * @param Array $data
+     *
+     * @return Array
+     */
     public function addUser($data)
     {
+        //check if this user already exists
         $user = $this->checkUserExistsByEmail($data['email']);
         if ($user->isEmpty()) {
+
+            //Create new user collection
             $user = $this->user->newInstance();
             $user->name = $data['name'];
             $user->email = $data['email'];
@@ -29,8 +39,12 @@ class UserRepository implements UserRepositoryInterface
             $user->city = $data['city'];
             $user->role_id = 2;
             $user->password = app('hash')->make($data['password']);
+
             try {
+
+                //Save user
                 $user->save();
+
             } catch (Exception $ex) {
                 return ['status' => false, 'message' => 'Something went wrong, please try again later.'];
             }
@@ -39,6 +53,13 @@ class UserRepository implements UserRepositoryInterface
         return ['status' => false, 'message' => 'This email id already exists'];
     }
 
+    /**
+     * Update user
+     *
+     * @param Array $data
+     *
+     * @return array
+     */
     public function updateUser($data)
     {
         $user = User::find($data['userId']);
@@ -57,23 +78,51 @@ class UserRepository implements UserRepositoryInterface
         return ['message' => 'This email id already exists'];
     }
 
+    /**
+     * Get all users by role id
+     *
+     * @param integer $roleId
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
     public function getUsers($roleId)
     {
         return User::where('role_id', $roleId)->get();
     }
-    
+
+    /**
+     * Delete user
+     *
+     * @param integer $userId
+     *
+     * @return boolean
+     */
     public function deleteUser($userId)
     {
         $user = User::find($userId);
-        $user->delete();
+        return $user->delete();
     }
-    
+
+    /**
+     * Get user
+     *
+     * @param integer $userId
+     *
+     * @return App\User
+     */
     public function getUser($userId)
     {
         $user = User::find($userId);
         return $user;
     }
-    
+
+    /**
+     * Check user exists by email
+     *
+     * @param string $email
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
     public function checkUserExistsByEmail($email)
     {
         $user = User::where('email',$email)->get();

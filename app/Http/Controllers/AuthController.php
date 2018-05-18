@@ -11,6 +11,13 @@ class AuthController extends Controller
         return view('user.login');
     }
 
+    /**
+     * User authentication check
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
     public function postLogin(Request $request)
     {
         $email = $request->input('email');
@@ -25,6 +32,11 @@ class AuthController extends Controller
             ->withErrors('That email/password does not exist.');
     }
 
+    /**
+     * User logout
+     *
+     * @return mixed
+     */
     public function getLogout()
     {
         $roleId = \Auth::user()->role_id;

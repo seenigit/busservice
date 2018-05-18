@@ -18,6 +18,11 @@ class BusTypeRepository implements BusTypeRepositoryInterface
         $this->busType = $busType;
     }
 
+    /**
+     * Get bus types
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
     public function getBusTypes()
     {
         return $this->busType->get();

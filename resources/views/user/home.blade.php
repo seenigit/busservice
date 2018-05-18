@@ -41,7 +41,7 @@
                                 <span><b>Bus Type : </b>{{ $bus->busType->name }}</span><br/>
                                 <span><b>Route / Arrival Time : </b> <br>
                                     @foreach ($bus->stations as $station)
-                                        -> {{ $station->name }} / {{ $station->pivot->arrival_time }} <br>
+                                        -> {{ $station->name }} / {{ Carbon\Carbon::parse($station->pivot->arrival_time)->format('g:i A') }} <br>
                                     @endforeach
                                 </span><br/>
                              </div>

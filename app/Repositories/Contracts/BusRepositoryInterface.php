@@ -13,4 +13,8 @@ interface BusRepositoryInterface
     public function getBuses();
 
     public function getBus($busId);
+
+    public function getBusIdByStationId($stationId);
+
+    public function checkBusesContainStationId($busIds, $stationId);
 }

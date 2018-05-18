@@ -17,15 +17,13 @@ class RedirectOnRole
      */
     public function handle($request, Closure $next, $role)
     {
-        $user_id = Auth::user()->id;
-        $query   = User::where('id', $user_id)->where('role_id', $role)->first();
-        if (!$query) {
-            Auth::logout();
-            if($role == config('constants.roles.ADMIN'))
-                return redirect('/admin/error403');
-            else
-                return redirect('/error403');
+        //Check if requested user have access to this route. if not redirect to the user home page
+        if( Auth::user()->role_id != $role ) {
+            if( Auth::user()->role_id == config('constants.roles.ADMIN') )
+                return redirect('/admin/dashboard');
+            return redirect('/');
         }
+
         return $next($request);
     }
 }

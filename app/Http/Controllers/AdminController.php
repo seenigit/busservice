@@ -21,24 +21,35 @@ use Validator;
 class AdminController extends Controller
 {
     /**
-     * @var $userRepository
+     * @var App\Repositories\Contracts\UserRepositoryInterface
      */
     protected $userRepository;
 
     /**
-     * @var $busRepository
+     * @var App\Repositories\Contracts\BusRepositoryInterface
      */
     protected $busRepository;
 
     /**
-     * @var $stationRepository
+     * @var App\Repositories\Contracts\StationRepositoryInterface
      */
     protected $stationRepository;
 
     /**
-     * @var $busTypeRepository
+     * @var App\Repositories\Contracts\BusTypeRepositoryInterface
      */
     protected $busTypeRepository;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param App\Repositories\Contracts\UserRepositoryInterface $userRepository
+     * @param App\Repositories\Contracts\BusRepositoryInterface $busRepository
+     * @param App\Repositories\Contracts\StationRepositoryInterface $stationRepository
+     * @param App\Repositories\Contracts\BusTypeRepositoryInterface $busTypeRepository
+     *
+     * @return void
+     */
 
     public function __construct(
         UserRepositoryInterface $userRepository,
@@ -52,31 +63,34 @@ class AdminController extends Controller
         $this->busTypeRepository = $busTypeRepository;
     }
 
-    public function getLogin()
+    /**
+     * Show login page
+     *
+     * @return Illuminate\View
+     */
+    public function showLogin()
     {
         return view('admin.login');
     }
 
-    public function postLogin(Request $request)
-    {
-        $email = $request->input('email');
-        $password = $request->input('password');
-
-        if (\Auth::attempt(['email' => $email, 'password' => $password])) {
-            return Redirect::to('/admin/dashboard');
-        }
-
-        return Redirect::back()
-            ->withInput()
-            ->withErrors('That email/password does not exist.');
-    }
-
+    /**
+     * Get all users
+     *
+     * @return Illuminate\View
+     */
     public function getDashboard()
     {
         $users = $this->userRepository->getUsers(config('constants.roles.PASSENGER'));
         return view('admin.dashboard', array('users' => $users));
     }
 
+    /**
+     * Add user
+     *
+     * @param Request $request
+     *
+     * @return Illuminate\View
+     */
     public function addUser(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -95,6 +109,14 @@ class AdminController extends Controller
         return view('admin.useradd');
     }
 
+    /**
+     * Edit user
+     *
+     * @param integer $userId
+     * @param Request $request
+     *
+     * @return Illuminate\View | string
+     */
     public function editUser($userId, Request $request)
     {
         if ($request->input('id'))
@@ -119,6 +141,13 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Delete user
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
     public function deleteUser(Request $request)
     {
         $userId = $request->input ('id');
@@ -126,12 +155,26 @@ class AdminController extends Controller
         return Redirect::to('/admin/dashboard');
     }
 
+    /**
+     * Get buses
+     *
+     * @param Request $request
+     *
+     * @return Illuminate\View | string
+     */
     public function busList()
     {
         $buses = $this->busRepository->getBuses();
         return view('admin.buslist', array('buses' => $buses));
     }
 
+    /**
+     * Add bus
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
     public function addBus(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -161,6 +204,13 @@ class AdminController extends Controller
         return view('admin.addbus', array('stations' => $stations, 'busTypes' => $busTypes));
     }
 
+    /**
+     * Delete bus
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
     public function deleteBus(Request $request)
     {
         $busId = $request->input ('id');
