@@ -29,8 +29,8 @@ class BusRepository implements BusRepositoryInterface
     {
         //check if this bus already exists
         $bus = $this->checkBusExists($data['name']);
-
-        if ($bus->isEmpty()) {
+        
+        if (!$bus) {
 
             //Create new bus collection
             $bus = $this->bus->newInstance();
